@@ -1,0 +1,272 @@
+@use "sass:map";
+@use 'sass:color';
+@use "_themes" as *;
+
+$card-shadow: 2px 2px 20px rgb(0 0 0 / 5%), 1px 1px 10px rgb(0 0 0 / 5%);
+$one-px: 12;
+
+@function darken-color($accent) {
+	@return color-mix(in srgb, $accent 80%, black);
+}
+
+@mixin apply-components-theme($theme) {
+  $accent: if(type-of($theme) == "map", map.get($theme, accent), $theme);
+  $bg: if(type-of($theme) == "map", map.get($theme, bg), white);
+  $text: if(type-of($theme) == "map", map.get($theme, text), #333);
+
+  .dropdown-item:active {
+    background-color: $accent;
+  }
+
+  .bg-bz {
+    background: $bg;
+  }
+
+  .text-bz {
+    color: $accent;
+  }
+
+  .btn-bz {
+    background: $accent;
+    border: $accent 1px solid;
+    color: white;
+
+    &:hover {
+      color: white;
+      background: darken-color($accent);
+      border: darken-color($accent) 1px solid;
+      cursor: pointer;
+    }
+
+    &:focus {
+      color: white;
+      box-shadow: 0 0 0 2 darken-color($accent);
+      background: darken-color($accent);
+      border: darken-color($accent) 1px solid;
+    }
+
+    &:disabled {
+      color: white;
+      background: darken-color($accent);
+      border: darken-color($accent) 1px solid;
+      cursor: no-drop;
+    }
+  }
+
+  .btn-bz-disabled {
+    cursor: no-drop!important;
+    color: white;
+    background: darken-color($accent);
+    border: darken-color($accent) 1px solid;
+  }
+
+  .btn-bz-outline {
+    background: $bg;
+    border: $accent 1px solid;
+    color: $text;
+
+    &:hover {
+      background: darken-color($accent);
+      color: white;
+      border: $accent 1px solid;
+      cursor: pointer;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2 darken-color($accent);
+      background: darken-color($accent);
+      color: white;
+      border: $accent 1px solid;
+    }
+
+    &:disabled {
+      cursor: no-drop;
+      color: darken-color($text);
+      background: darken-color($accent);
+      border: darken-color($accent) 1px solid;
+    }
+  }
+
+  .btn-bz-outline-disabled {
+    cursor: no-drop;
+    color: darken-color($text);
+    background: white;
+    border: darken-color($accent) 2px solid;
+  }
+
+  .btn-default {
+    background: $bg;
+    // border: 0;
+
+    &:hover {
+      cursor: pointer;
+      background: darken-color($accent);
+    }
+
+    &:not(:disabled):not(.disabled) {
+
+      &:active,
+      &.active {
+        background: darken-color($accent);
+      }
+    }
+
+    &:disabled {
+      cursor: no-drop;
+      background: darken-color($accent);
+    }
+  }
+
+  .btn-default-disabled {
+    background: darken-color($accent);
+    &:hover {
+      cursor: no-drop;
+    }
+  }
+
+  .badge {
+    height: auto;
+    color: $text;
+    background: $bg;
+    box-shadow: $card-shadow;
+
+    &:hover {
+      color: $text;
+      border: $accent solid 1px;
+    }
+  }
+
+  .badge-close {
+    color: darken-color(red);
+    cursor: pointer;
+
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+// background: rgba($bz, .1);
+@mixin filter-themes {
+  @each $name, $accent in $themes {
+    [data-theme="#{$name}"] {
+      @include apply-components-theme($accent);
+    }
+  }
+}
+
+/* .d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.position-fixed {
+  position: fixed;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.start-0 {
+  left: 0;
+}
+
+.bg-black {
+  background-color: black!important;;
+}
+
+.bg-dark {
+  background-color: #212529!important;
+}
+
+.opacity-75 {
+  opacity: 0.75;
+}
+
+.text-secondary {
+  color: #6c757d;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+.mb-1 {
+  margin-bottom: $one-px + px;
+}
+
+.mb-2 {
+  margin-bottom: ($one-px * 2) + px;
+}
+
+.mb-3 {
+  margin-bottom: ($one-px * 3) + px;
+}
+
+.mb-4 {
+  margin-bottom: ($one-px * 4) + px;
+}
+
+.mb-5 {
+  margin-bottom: ($one-px * 5) + px;
+}
+
+.p-1 {
+ padding: $one-px + px;
+}
+
+.p-2 {
+ padding: ($one-px * 2) + px;
+}
+
+.p-3 {
+ padding: ($one-px * 3) + px;
+}
+
+.p-4 {
+ padding: ($one-px * 4) + px;
+}
+
+.p-5 {
+ padding: ($one-px * 5) + px;
+}
+
+.btn {
+  margin: 3px;
+  padding: 3px;
+  background: transparent;
+  font-size: 16px;
+  border: #6c757d 1px solid;
+  color: #6c757d;
+} */
+
+html,
+body,
+#root {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 16px;
+  @include filter-themes();
+}
