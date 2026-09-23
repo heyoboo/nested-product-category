@@ -54,7 +54,7 @@ const TreeItem = ({ renderItemParams, customParams }) => {
           <div
             className={`
             ${isShowWarning ? "show" : "hide"}
-            absolute right-0 p-1 rounded-sm bg-white font-light whitespace-nowrap shadow-sm`}
+            absolute right-0 p-1 rounded-sm bg-mist-950 font-light whitespace-nowrap shadow-sm`}
             style={{
               zIndex: 999,
               top: -26,
@@ -324,7 +324,7 @@ export const CategoryConfiguration = ({
         style={{ zIndex: 99 }}
       >
         <div
-          className="relative flex flex-col justify-between bg-white"
+          className="relative flex flex-col justify-between bg-mist-950 border"
           style={{
             maxWidth: "1024px",
             width: "100%",
@@ -334,7 +334,7 @@ export const CategoryConfiguration = ({
           }}
         >
           <div
-            className="flex justify-between items-center px-3 bg-white w-full border-0 border-b"
+            className="flex justify-between items-center px-3 bg-mist-950 w-full border-0 border-b"
             style={{ height: "50px", borderRadius: "8px 8px 0 0" }}
           >
             <div className=" text-xl font-light">Category Configuration</div>

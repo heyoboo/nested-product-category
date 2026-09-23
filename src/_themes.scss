@@ -1,8 +1,8 @@
 @use "tailwindcss";
 
 $themes: (
-	"indigo": var(--color-indigo-600),
-	"third": #1f8a60,
-	"fourth": #007fc5,
-	"fifth": #1470ad,
+  "indigo": (accent: var(--color-indigo-600), bg: var(--color-mist-950), text: var(--color-slate-400)),
+  "third":  (accent: #1f8a60, bg: #ffffff),
+  "fourth": (accent: #007fc5, bg: #ffffff),
+  "fifth":  (accent: #1470ad, bg: #ffffff),
 );

@@ -33,14 +33,15 @@ export const SubTags = ({ renderItemParams, customParams }) => {
           isForSearch
             ? itemId === activeTag.id
               ? customClassNames?.active || "btn-bz"
-              : customClassNames?.default || "btn-bz-outline"
+              : customClassNames?.default || "btn-bz-outline" // TODO: fix borders
             : itemId === appliedCategoryNodes[subTagIndex].id
-              ? `${isReadOnly ? "opacity-75" : ""} text-white bg-secondary`
+              ? `${isReadOnly ? "opacity-75" : ""} text-white btn-bz`
               : isReadOnly
-                ? "" : "btn-default"
+                ? ""
+                : "btn-default"
         }
-        flex items-center px-2 py-1 border-0 rounded-none`}
-                style={{ ...(isReadOnly && { cursor: "no-drop" }) }}
+        flex items-center px-2 py-1 border-0`}
+        style={{ ...(isReadOnly && { cursor: "no-drop" }) }}
         onClick={(e) => {
           if (e.defaultPrevented) return;
           if (isForSearch) {
@@ -50,11 +51,11 @@ export const SubTags = ({ renderItemParams, customParams }) => {
               sourceId,
               subTagIndex,
             });
-           if(setCurrentPage) setCurrentPage(1);
+            if (setCurrentPage) setCurrentPage(1);
           }
           if (!isForSearch && !isReadOnly) {
-            updateAppliedCategories(item, subTagIndex)
-            setSubTagIndex(null)
+            updateAppliedCategories(item, subTagIndex);
+            setSubTagIndex(null);
           }
         }}
       >
@@ -66,7 +67,7 @@ export const SubTags = ({ renderItemParams, customParams }) => {
               (isItemExpanded ? onCollapse : onExpand)(
                 subTagTree,
                 setSubTagTree,
-                item.id
+                item.id,
               );
             }}
           >

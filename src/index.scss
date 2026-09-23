@@ -1,49 +1,54 @@
+@use "sass:map";
 @use 'sass:color';
 @use "_themes" as *;
 
 $card-shadow: 2px 2px 20px rgb(0 0 0 / 5%), 1px 1px 10px rgb(0 0 0 / 5%);
 $one-px: 12;
 
-@function darken-color($color) {
-	@return color-mix(in srgb, $color 80%, black);
+@function darken-color($accent) {
+	@return color-mix(in srgb, $accent 80%, black);
 }
 
-@mixin apply-components-theme($color) {
+@mixin apply-components-theme($theme) {
+  $accent: if(type-of($theme) == "map", map.get($theme, accent), $theme);
+  $bg: if(type-of($theme) == "map", map.get($theme, bg), white);
+  $text: if(type-of($theme) == "map", map.get($theme, text), #333);
+
   .dropdown-item:active {
-    background-color: $color;
+    background-color: $accent;
   }
 
   .bg-bz {
-    background: $color;
+    background: $bg;
   }
 
   .text-bz {
-    color: $color;
+    color: $accent;
   }
 
   .btn-bz {
-    background: $color;
-    border: $color 2px solid;
+    background: $accent;
+    border: $accent 1px solid;
     color: white;
 
     &:hover {
       color: white;
-      background: darken-color($color);
-      border: darken-color($color) 2px solid;
+      background: darken-color($accent);
+      border: darken-color($accent) 1px solid;
       cursor: pointer;
     }
 
     &:focus {
       color: white;
-      box-shadow: 0 0 0 2 darken-color($color);
-      background: darken-color($color);
-      border: darken-color($color) 2px solid;
+      box-shadow: 0 0 0 2 darken-color($accent);
+      background: darken-color($accent);
+      border: darken-color($accent) 1px solid;
     }
 
     &:disabled {
       color: white;
-      background: darken-color($color);
-      border: darken-color($color) 2px solid;
+      background: darken-color($accent);
+      border: darken-color($accent) 1px solid;
       cursor: no-drop;
     }
   }
@@ -51,91 +56,101 @@ $one-px: 12;
   .btn-bz-disabled {
     cursor: no-drop!important;
     color: white;
-    background: darken-color($color);
-    border: darken-color($color) 2px solid;
+    background: darken-color($accent);
+    border: darken-color($accent) 1px solid;
   }
 
   .btn-bz-outline {
-    background: white;
-    border: $color 2px solid;
-    color: $color;
+    background: $bg;
+    border: $accent 1px solid;
+    color: $text;
 
     &:hover {
-      background: darken-color($color);
-      color: $color;
-      border: $color 2px solid;
+      background: darken-color($accent);
+      color: white;
+      border: $accent 1px solid;
       cursor: pointer;
     }
 
     &:focus {
-      box-shadow: 0 0 0 2 darken-color($color);
-      background: darken-color($color);
-      color: $color;
-      border: $color 2px solid;
+      box-shadow: 0 0 0 2 darken-color($accent);
+      background: darken-color($accent);
+      color: white;
+      border: $accent 1px solid;
     }
 
     &:disabled {
       cursor: no-drop;
-      color: darken-color($color);
-      background: darken-color($color);
-      border: darken-color($color) 2px solid;
+      color: darken-color($text);
+      background: darken-color($accent);
+      border: darken-color($accent) 1px solid;
     }
   }
 
   .btn-bz-outline-disabled {
     cursor: no-drop;
-    color: darken-color($color);
+    color: darken-color($text);
     background: white;
-    border: darken-color($color) 2px solid;
+    border: darken-color($accent) 2px solid;
   }
 
-  .badge-bz {
-    padding: 8px 20px;
-    color: white;
-    background: $color;
-    border: $color 1px solid;
-    border-radius: 8px;
-    font-size: 16px;
+  .btn-default {
+    background: $bg;
+    // border: 0;
+
+    &:hover {
+      cursor: pointer;
+      background: darken-color($accent);
+    }
+
+    &:not(:disabled):not(.disabled) {
+
+      &:active,
+      &.active {
+        background: darken-color($accent);
+      }
+    }
+
+    &:disabled {
+      cursor: no-drop;
+      background: darken-color($accent);
+    }
+  }
+
+  .btn-default-disabled {
+    background: darken-color($accent);
+    &:hover {
+      cursor: no-drop;
+    }
+  }
+
+  .badge {
+    height: auto;
+    color: $text;
+    background: $bg;
+    box-shadow: $card-shadow;
+
+    &:hover {
+      color: $text;
+      border: $accent solid 1px;
+    }
+  }
+
+  .badge-close {
+    color: darken-color(red);
     cursor: pointer;
 
     &:hover {
-      color: white;
-      background: darken-color($color);
-    }
-
-    &:active {
-      background: darken-color($color);
-      color: white;
-      border: $color 1px solid;
-    }
-  }
-
-  .badge-bz-outline {
-    padding: 8px 20px;
-    color: $color;
-    background: white;
-    font-size: 16px;
-    border: $color 1px solid;
-    border-radius: 8px;
-
-    &:hover {
-      background: darken-color($color);
-      color: white;
-    }
-
-    &:active {
-      background: darken-color($color);
-      color: $color;
-      border: $color 1px solid;
+      color: red;
     }
   }
 }
 
 // background: rgba($bz, .1);
 @mixin filter-themes {
-  @each $name, $color in $themes {
+  @each $name, $accent in $themes {
     [data-theme="#{$name}"] {
-      @include apply-components-theme($color);
+      @include apply-components-theme($accent);
     }
   }
 }

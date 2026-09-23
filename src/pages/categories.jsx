@@ -187,6 +187,7 @@ export default function Categories() {
               setActiveTag={setActiveTag}
               setCurrentPage={setCurrentPage}
               customClassNames={{
+                // TODO: disable this to test fallback style
                 default: `p-2 min-w-18 flex justify-center border border-indigo-600 rounded
                 text-gray-300 hover:bg-mist-900`,
                 active: `p-2 min-w-18 flex justify-center border border-indigo-600 rounded

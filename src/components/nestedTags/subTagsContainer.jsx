@@ -78,10 +78,11 @@ export const SubTagsContainer = ({
     >
       <div
         className={`overflow-auto p-0
-        ${isForSearch
-          ? customClassNames?.subTagContainer ||
-                      "badge-bz-outline bg-white rounded"
-                    : "border bg-white show-scrollbar overflow-auto card-shadow rounded"
+        ${
+          isForSearch
+            ? customClassNames?.subTagContainer ||
+              "bg-bz min-w-20 rounded" // TODO: add border for default, maybe use a class
+            : "bg-bz border show-scrollbar overflow-auto card-shadow rounded"
         }`}
         style={{ maxHeight: !isForSearch ? "200px" : "" }}
       >

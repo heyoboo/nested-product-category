@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { SubTagsContainer } from "./subTagsContainer";
-import { NestedTagAdd } from "./nestedTagAdd"
+import { NestedTagAdd } from "./nestedTagAdd";
 
 import { withCustomClassNames } from "./withCustomClassNames";
 import { withBadgeForItemPanel } from "./withBadgeForItemPanel";
@@ -28,20 +28,21 @@ const NestedTags = (props) => {
   const [parentTagElement, setParentTagElement] = useState(null);
   return (
     <>
-      {(isForSearch || (!isForSearch && !!parentTagNodes.length)) &&
+      {(isForSearch || (!isForSearch && !!parentTagNodes.length)) && (
         <div
           ref={parentTagsContainerRef}
           className={`${fullWidth ? "tag-container-full" : "tag-container"}
-                    ${itemPanelBadgesWrapperClassNames ? itemPanelBadgesWrapperClassNames : ""}
-                    overflow-auto my-1 flex items-center whitespace-nowrap`}
-                  >
+            ${itemPanelBadgesWrapperClassNames ? itemPanelBadgesWrapperClassNames : ""}
+            overflow-auto my-1 flex items-center whitespace-nowrap`}
+        >
           {isForSearch && !parentTagNodes.length ? (
-            <div className={`px-5
-              ${customClassNames?.default || "badge-bz-outline"}`}
+            <div
+              className={`px-5
+              ${customClassNames?.default || "btn-bz-outline flex justify-center p-2 min-w-18 rounded"}`}
             >
               <div
                 className={`h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent
-                                  ${customClassNames?.default || "text-bz"}`}
+                  ${customClassNames?.default || "text-bz"}`}
                 role="status"
               />
             </div>
@@ -61,50 +62,61 @@ const NestedTags = (props) => {
                   id={`parentTag${isForSearch ? "" : parentTagId}`}
                   className={`flex font-light px-3 mr-2
                   user-select-${isReadOnly ? "auto" : "none"}
-                  ${(itemPanelBadgeClassNames && itemPanelBadgeClassNames) ||
+                  ${
+                    (itemPanelBadgeClassNames && itemPanelBadgeClassNames) ||
                     (activeTag?.id === parentTagId ||
                     activeTag?.subTagIndex === index
-                      ? customClassNames?.active || "badge-bz"
-                                            : customClassNames?.default || "badge-bz-outline rounded")
-                                        }`}
-                  style={{ cursor: !isForSearch && isReadOnly ? "auto" : "pointer" }}
+                      ? customClassNames?.active || "btn-bz flex justify-center p-2 min-w-18 rounded"
+                      : customClassNames?.default || "btn-bz-outline flex justify-center p-2 min-w-18 rounded")
+                  }`}
+                  style={{
+                    cursor: !isForSearch && isReadOnly ? "auto" : "pointer",
+                  }}
                   onClick={() => {
                     if (isForSearch) {
                       setActiveTag(
                         parentTagName === "all"
                           ? { id: 0, name: "all" }
-                          : { id: parentTagId, name: parentOriginalName }
+                          : { id: parentTagId, name: parentOriginalName },
                       );
-                    if(setCurrentPage) setCurrentPage(1);
+                      if (setCurrentPage) setCurrentPage(1);
                     }
                     if (!isForSearch && !isReadOnly)
-                      updateAppliedCategories(parentTagNode, index)
+                      updateAppliedCategories(parentTagNode, index);
                   }}
                   onMouseEnter={(e) => {
                     setParentTagElement(e);
                     parentTagHasChildren && setSubTagIndex(index);
-                    !isReadOnly && !isForSearch && document.querySelector(`#parentTag${parentTagId}`)?.classList.remove("border-white")
+                    !isReadOnly &&
+                      !isForSearch &&
+                      document
+                        .querySelector(`#parentTag${parentTagId}`)
+                        ?.classList.remove("border");
                   }}
                   onMouseLeave={() => {
                     setSubTagIndex(null);
-                    !isReadOnly && !isForSearch && document.querySelector(`#parentTag${parentTagId}`)?.classList.add("border-white")
+                    !isReadOnly &&
+                      !isForSearch &&
+                      document
+                        .querySelector(`#parentTag${parentTagId}`)
+                        ?.classList.add("border");
                   }}
                 >
                   <div className="flex">
                     {(parentTagName === "all" && "All") ||
-                      ((activeTag?.subTagIndex === index || !isForSearch)
+                      (activeTag?.subTagIndex === index || !isForSearch
                         ? parentTagName
                         : parentOriginalName)}
                     {!isForSearch && !isReadOnly && (
                       <span
-                        className="flex justify-center items-center ml-1 text-red-600"
+                        className="flex justify-center items-center ml-3 badge-close"
                         onClick={(e) => {
-                          e.stopPropagation()
-                          deleteAppliedCategoryPath(parentTagId)
+                          e.stopPropagation();
+                          deleteAppliedCategoryPath(parentTagId);
                           setSubTagIndex(null);
                         }}
                       >
-                      x
+                        x
                       </span>
                     )}
                   </div>
@@ -131,14 +143,19 @@ const NestedTags = (props) => {
               );
             })
           )}
-        </div>}
-      {!isForSearch && <NestedTagAdd { ...props } />}
+        </div>
+      )}
+      {!isForSearch && <NestedTagAdd {...props} />}
     </>
   );
 };
 
-const NestedTagsForSearch = withCustomClassNames(withTagsData(NestedTags, { isForSearch: true }));
+const NestedTagsForSearch = withCustomClassNames(
+  withTagsData(NestedTags, { isForSearch: true }),
+);
 const NestedTagsWithBadgeForItemPanel = withBadgeForItemPanel(NestedTags);
-const NestedTagsForItemPanel = withTagsData(NestedTagsWithBadgeForItemPanel, { isForSearch: false });
+const NestedTagsForItemPanel = withTagsData(NestedTagsWithBadgeForItemPanel, {
+  isForSearch: false,
+});
 
 export { NestedTags, NestedTagsForSearch, NestedTagsForItemPanel };
