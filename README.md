@@ -2,9 +2,6 @@
 This project demonstrates a reusable recursive category management system for eCommerce applications. The demo uses Atlaskit Tree.
 
 ## Demo
-You can check the live demo here:
-[Codesandbox Demo](https://codesandbox.io/p/devbox/ntw26c)
-
 Refined and more featured component screenshots took from BZQUICK admin panel which I worked on:
 
 ### Category Taxonomy Configuration
