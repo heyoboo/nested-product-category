@@ -1,6 +1,9 @@
 # Nested Product Category Configuration
 This project demonstrates a reusable recursive category management system for eCommerce applications. The demo uses Atlaskit Tree.
 
+## Documentation
+Check the documentation generated in depth by DeepWiki or ask away here! [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/heyoboo/nested-product-category)
+
 ## Demo
 Refined and more featured component screenshots took from BZQUICK admin panel which I worked on:
 
