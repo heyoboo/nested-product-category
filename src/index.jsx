@@ -1,16 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Categories from './pages/categories'
+import Stress from './pages/stress.jsx'
 import reportWebVitals from './reportWebVitals';
 import './tailwind.css';
 import './index.scss';
+
 
 const themeName = 'indigo'
 
 ReactDOM.render(
   <React.StrictMode>
     <div className='h-full w-full' data-theme={themeName}>
-      <Categories />
+      {/* <Categories /> */}
+      <Stress />
     </div>
   </React.StrictMode>,
   document.getElementById('root')

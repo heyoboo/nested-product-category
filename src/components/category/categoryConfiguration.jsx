@@ -406,7 +406,7 @@ export const CategoryConfiguration = ({
                         value={newItemName}
                         style={{ marginRight: "10px" }}
                         onClick={(e) => e.stopPropagation()}
-                        onChange={(e) => setNewItemName(e.target.value)}
+                        onChange={(e) => setNewItemName(e.target.value)} // REVIEW with 500 items, every key stroke lags
                       />
                       <div
                         className="btn-bz p-2 py-1 rounded border"
