@@ -19,6 +19,8 @@ Refined and more featured component screenshots took from BZQUICK admin panel wh
 ## To run the app
 In the project directory:
 
-```bash
-npm install && npm run dev
+```sh
+# Requires Node 20+ and pnpm 9+ (install with: npm i -g pnpm)
+pnpm install
+pnpm dev
 ```

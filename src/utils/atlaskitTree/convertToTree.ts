@@ -7,7 +7,7 @@ interface Node {
   sourceId: number | null;
 }
 
-export const convertToTree = (flatData: Node[], isExpanded: boolean): TreeData => {
+export const convertToTree = (flatData: Node[], isExpanded: boolean = true): TreeData => {
   const rootId = 0;
   const parentMap = new Map<number, number[]>();
   flatData.forEach((node) => {

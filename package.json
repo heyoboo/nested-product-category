@@ -1,38 +1,20 @@
 {
-  "name": "dnd-study",
+  "name": "nested-product-category",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@atlaskit/tree": "^8.4.0",
     "eslint": "^7.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "styled-components": "^5.3.3",
-    "web-vitals": "^1.0.1"
+    "styled-components": "^5.3.3"
   },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "jest",
     "preview": "vite preview"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",

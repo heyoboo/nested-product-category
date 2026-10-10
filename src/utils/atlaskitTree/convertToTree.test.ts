@@ -1,16 +1,18 @@
-import { toTree } from "./dataTree";
+import { convertToTree } from "./convertToTree";
 
 test("parse data structure", () => {
-  const res = toTree([
+  const res = convertToTree([
     {
       id: 1,
       name: "n1",
       sourceId: null,
+      displaySequence: 1,
     },
     {
       id: 2,
       name: "n2",
       sourceId: 1,
+      displaySequence: 1,
     },
   ]);
 
