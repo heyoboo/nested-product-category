@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   convertToTree,
   findChildrenNodesByParentId,
@@ -56,8 +56,7 @@ export const withTagsData = (WrappedComponent, { isForSearch }) => {
     const updateAppliedCategories = (newAppliedCategoryNode, subTagIndex) => {
       const otherAppliedCategoryNodes =
         appliedCategoryNodes.map((node, index) => index !== subTagIndex && node).filter(node => !!node)
-      const updatedAppliedCategoryNodes = [ ...otherAppliedCategoryNodes, newAppliedCategoryNode ]
-      applyCategoryChanges(updatedAppliedCategoryNodes)
+      applyCategoryChanges([ ...otherAppliedCategoryNodes, newAppliedCategoryNode ])
     }
 
     useEffect(() => {
@@ -100,7 +99,13 @@ export const withTagsData = (WrappedComponent, { isForSearch }) => {
             } else {
               const pathNameFromAppliedCategoryToRoot
                 = findPathNameFromLeafToRoot(wholeCategoryFlatItems, categorySourceId, categoryName)
-              appliedCategoryParentNodes[index].data.name = pathNameFromAppliedCategoryToRoot
+              appliedCategoryParentNodes[index] = {
+                ...appliedCategoryParentNodes[index],
+                data: {
+                  ...appliedCategoryParentNodes[index].data,
+                  name: pathNameFromAppliedCategoryToRoot,
+                },
+              };
             }
           });
           setParentTagNodes(appliedCategoryParentNodes);
@@ -149,15 +154,14 @@ export const withTagsData = (WrappedComponent, { isForSearch }) => {
       }
     }, [categoryTreeItems, isFetchingCategories]);
 
-    useEffect(() => {
-      if (isForSearch && activeTag.subTagIndex) {
-        const { name: activeTagName, sourceId: activeTagSourceId } = activeTag;
-        const pathNameFromActiveTagToRoot = findPathNameFromLeafToRoot(wholeCategoryFlatItems, activeTagSourceId, activeTagName)
-        const tempParentTagNodes = [...parentTagNodes];
-        tempParentTagNodes[activeTag.subTagIndex].data.name = pathNameFromActiveTagToRoot
-        setParentTagNodes(tempParentTagNodes);
-      }
-    }, [activeTag]);
+    const activePathName =
+      isForSearch && activeTag?.subTagIndex != null
+        ? findPathNameFromLeafToRoot(
+            wholeCategoryFlatItems ?? [],
+            activeTag.sourceId,
+            activeTag.name,
+          )
+        : null;
 
     return (
       <WrappedComponent
@@ -175,6 +179,7 @@ export const withTagsData = (WrappedComponent, { isForSearch }) => {
         isForSearch={isForSearch}
         categoryTreeItems={categoryTreeItems}
         parentTagNodes={parentTagNodes}
+        activePathName={activePathName}
       />
     );
   };

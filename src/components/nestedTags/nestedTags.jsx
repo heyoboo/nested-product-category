@@ -16,6 +16,7 @@ const NestedTags = (props) => {
     isForSearch,
     categoryTreeItems,
     parentTagNodes,
+    activePathName,
     appliedCategoryNodes,
     deleteAppliedCategoryPath,
     updateAppliedCategories,
@@ -87,26 +88,18 @@ const NestedTags = (props) => {
                   onMouseEnter={(e) => {
                     setParentTagElement(e);
                     parentTagHasChildren && setSubTagIndex(index);
-                    !isReadOnly &&
-                      !isForSearch &&
-                      document
-                        .querySelector(`#parentTag${parentTagId}`)
-                        ?.classList.remove("border");
                   }}
                   onMouseLeave={() => {
                     setSubTagIndex(null);
-                    !isReadOnly &&
-                      !isForSearch &&
-                      document
-                        .querySelector(`#parentTag${parentTagId}`)
-                        ?.classList.add("border");
                   }}
                 >
                   <div className="flex">
                     {(parentTagName === "all" && "All") ||
-                      (activeTag?.subTagIndex === index || !isForSearch
-                        ? parentTagName
-                        : parentOriginalName)}
+                      (isForSearch && activeTag?.subTagIndex === index
+                        ? activePathName
+                        : !isForSearch
+                          ? parentTagName
+                          : parentOriginalName)}
                     {!isForSearch && !isReadOnly && (
                       <span
                         className="flex justify-center items-center ml-3 badge-close"

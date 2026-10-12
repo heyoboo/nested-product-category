@@ -13,7 +13,7 @@ import {
 // }
 //
 // `sourceId` is the parent category id. Root categories have `sourceId: null`.
-const SEED_CATEGORIES = [
+const STUB_CATEGORIES = [
   { id: 1, name: "Food", displaySequence: 1, sourceId: null },
   { id: 2, name: "Drinks", displaySequence: 2, sourceId: null },
   { id: 3, name: "Snacks", displaySequence: 3, sourceId: null },
@@ -24,7 +24,7 @@ const SEED_CATEGORIES = [
   { id: 8, name: "Grilled", displaySequence: 1, sourceId: 4 },
 ];
 
-const SEED_PRODUCTS = [
+const STUB_PRODUCTS = [
   { id: "p1", name: "Grilled Chicken", categoryIds: [1, 4, 8] },
   { id: "p2", name: "Iced Soda", categoryIds: [2, 6] },
   { id: "p3", name: "Fresh Juice", categoryIds: [2, 7] },
@@ -41,8 +41,8 @@ const pruneProductCategoryIds = (products, categories) => {
 };
 
 export default function Categories() {
-  const [categories, setCategories] = useState(SEED_CATEGORIES);
-  const [products, setProducts] = useState(SEED_PRODUCTS);
+  const [categories, setCategories] = useState(STUB_CATEGORIES);
+  const [products, setProducts] = useState(STUB_PRODUCTS);
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [draftName, setDraftName] = useState("");
@@ -128,8 +128,8 @@ export default function Categories() {
   };
 
   const resetToSeed = () => {
-    setCategories(SEED_CATEGORIES);
-    setProducts(SEED_PRODUCTS);
+    setCategories(STUB_CATEGORIES);
+    setProducts(STUB_PRODUCTS);
     setActiveTag({ id: 0, name: "all" });
     addLog("Reset to seed data");
   };
@@ -306,6 +306,8 @@ export default function Categories() {
                     appliedCategoryFlatItems={appliedCategoryFlatItems}
                     setNewAppliedCategoryIds={(ids) => {
                       setDraftCategoryIds(ids);
+                      console.log({appliedCategoryFlatItems});
+                      
                       addLog(`draft categoryIds -- [${ids.join(", ")}]`);
                     }}
                     setCategoryIdsToDelete={(ids) => {

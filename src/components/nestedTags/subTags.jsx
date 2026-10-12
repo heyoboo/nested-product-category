@@ -33,7 +33,7 @@ export const SubTags = ({ renderItemParams, customParams }) => {
           isForSearch
             ? itemId === activeTag.id
               ? customClassNames?.active || "btn-bz"
-              : customClassNames?.default || "btn-bz-outline" // TODO: fix borders
+              : customClassNames?.default || "btn-bz-outline" // REVIEW: fix borders
             : itemId === appliedCategoryNodes[subTagIndex].id
               ? `${isReadOnly ? "opacity-75" : ""} text-white btn-bz`
               : isReadOnly
